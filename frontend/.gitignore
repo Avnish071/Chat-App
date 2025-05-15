@@ -16,7 +16,7 @@ dist-ssr
 
 # Dependency directories
 node_modules/
-backend/node_modules/
+
 
 
 # Editor directories and files
