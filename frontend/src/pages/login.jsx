@@ -1,8 +1,11 @@
 import React, { useState } from "react";
+import { useNavigate } from "react-router-dom"; // <-- ADD THIS
 import { motion } from "framer-motion";
 import { LogIn, Eye, EyeOff } from "lucide-react";
 
 export default function LoginPage() {
+  const navigate = useNavigate(); // <-- INIT NAVIGATE
+
   const [showPassword, setShowPassword] = useState(false);
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -15,27 +18,28 @@ export default function LoginPage() {
     setLoading(true);
 
     try {
-      const response = await fetch("/api/login", {  // adjust URL if needed
+      const response = await fetch("http://localhost:5000/api/auth/login", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        credentials: "include", // if your backend sets HTTP-only cookies for JWT token
+        credentials: "include",
         body: JSON.stringify({ email, password }),
       });
 
       const data = await response.json();
 
       if (!response.ok) {
-        // Backend returns JSON with message property on error
         setStatusMessage(data.message || "Login failed");
       } else {
         setStatusMessage("Login successful!");
-        // Optionally, save user data or redirect
-        // e.g. localStorage.setItem('user', JSON.stringify(data));
-        // Or redirect with useNavigate from react-router-dom
+        // Redirect to dashboard after short delay
+        setTimeout(() => {
+          navigate("/dashboard"); // <-- REDIRECT
+        }, 1000);
       }
     } catch (err) {
       setStatusMessage("Network error. Please try again.");
     }
+
     setLoading(false);
   };
 
@@ -66,6 +70,7 @@ export default function LoginPage() {
                 </label>
                 <input
                   type="email"
+                  autoComplete="email"
                   placeholder="you@example.com"
                   className="input input-bordered w-full focus:input-primary"
                   value={email}
@@ -81,6 +86,7 @@ export default function LoginPage() {
                 <div className="relative">
                   <input
                     type={showPassword ? "text" : "password"}
+                    autoComplete="current-password"
                     placeholder="••••••••"
                     className="input input-bordered w-full pr-12 focus:input-primary"
                     value={password}
