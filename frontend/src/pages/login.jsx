@@ -1,10 +1,10 @@
 import React, { useState } from "react";
-import { useNavigate } from "react-router-dom"; // <-- ADD THIS
+import { useNavigate } from "react-router-dom";
 import { motion } from "framer-motion";
 import { LogIn, Eye, EyeOff } from "lucide-react";
 
 export default function LoginPage() {
-  const navigate = useNavigate(); // <-- INIT NAVIGATE
+  const navigate = useNavigate();
 
   const [showPassword, setShowPassword] = useState(false);
   const [email, setEmail] = useState("");
@@ -31,10 +31,7 @@ export default function LoginPage() {
         setStatusMessage(data.message || "Login failed");
       } else {
         setStatusMessage("Login successful!");
-        // Redirect to dashboard after short delay
-        setTimeout(() => {
-          navigate("/dashboard"); // <-- REDIRECT
-        }, 1000);
+        setTimeout(() => navigate("/dashboard"), 1000);
       }
     } catch (err) {
       setStatusMessage("Network error. Please try again.");
@@ -44,51 +41,48 @@ export default function LoginPage() {
   };
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-white via-blue-300 to-white flex items-start justify-start px-8 py-16">
+    <div className="min-h-screen bg-gradient-to-br from-white via-blue-300 to-white flex items-center justify-center px-4 py-12">
       <motion.div
-        initial={{ opacity: 0, x: -40 }}
-        animate={{ opacity: 1, x: 0 }}
+        initial={{ opacity: 0, y: 30 }}
+        animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.6 }}
-        className="w-full max-w-md"
+        className="flex flex-col md:flex-row bg-white shadow-2xl rounded-3xl overflow-hidden max-w-5xl w-full"
       >
-        <div className="card bg-base-100 border border-gray-200 shadow-xl rounded-2xl">
-          <div className="card-body space-y-6">
+        {/* Left: Login Form */}
+        <div className="w-full md:w-1/2 p-8 md:p-12">
+          <div className="space-y-6">
             {/* Header */}
             <div>
               <div className="flex items-center space-x-2 mb-2">
-                <LogIn className="h-8 w-8 text-primary" />
+                <LogIn className="h-7 w-7 text-primary" />
                 <h1 className="text-2xl font-bold text-gray-800">Welcome Back</h1>
               </div>
               <p className="text-sm text-gray-500">Log in to your account</p>
             </div>
 
             {/* Form */}
-            <form className="space-y-4" onSubmit={handleLogin}>
-              <div className="form-control">
-                <label className="label">
-                  <span className="label-text">Email</span>
-                </label>
+            <form onSubmit={handleLogin} className="space-y-4">
+              <div>
+                <label className="label-text block text-sm font-medium mb-1">Email</label>
                 <input
                   type="email"
-                  autoComplete="email"
                   placeholder="you@example.com"
-                  className="input input-bordered w-full focus:input-primary"
+                  autoComplete="email"
+                  className="input input-bordered w-full"
                   value={email}
                   onChange={(e) => setEmail(e.target.value)}
                   required
                 />
               </div>
 
-              <div className="form-control">
-                <label className="label">
-                  <span className="label-text">Password</span>
-                </label>
+              <div>
+                <label className="label-text block text-sm font-medium mb-1">Password</label>
                 <div className="relative">
                   <input
                     type={showPassword ? "text" : "password"}
-                    autoComplete="current-password"
                     placeholder="••••••••"
-                    className="input input-bordered w-full pr-12 focus:input-primary"
+                    autoComplete="current-password"
+                    className="input input-bordered w-full pr-12"
                     value={password}
                     onChange={(e) => setPassword(e.target.value)}
                     required
@@ -104,7 +98,7 @@ export default function LoginPage() {
                 </div>
               </div>
 
-              <button className="btn btn-primary w-full mt-2" disabled={loading}>
+              <button type="submit" className="btn btn-primary w-full" disabled={loading}>
                 {loading ? "Logging in..." : "Log In"}
               </button>
             </form>
@@ -112,10 +106,8 @@ export default function LoginPage() {
             {/* Status Message */}
             {statusMessage && (
               <p
-                className={`text-center mt-4 ${
-                  statusMessage === "Login successful!"
-                    ? "text-green-600"
-                    : "text-red-600"
+                className={`text-center text-sm font-medium ${
+                  statusMessage === "Login successful!" ? "text-green-600" : "text-red-600"
                 }`}
               >
                 {statusMessage}
@@ -123,16 +115,25 @@ export default function LoginPage() {
             )}
 
             {/* Footer */}
-            <div className="text-sm text-gray-500">
-              Don't have an account?{" "}
-              <a
-                href="/signup"
-                className="text-primary font-medium hover:underline"
-              >
+            <div className="text-sm text-gray-500 text-center">
+              Don’t have an account?{" "}
+              <a href="/signup" className="text-primary font-medium hover:underline">
                 Sign up
               </a>
             </div>
           </div>
+        </div>
+
+        {/* Right: Image Section */}
+        <div className="hidden md:flex md:w-1/2 items-center justify-center bg-blue-100">
+            <img
+            src="/photos/landingimage.jpeg"
+            alt="Chat App Visual"
+          className="w-[32rem]  object-cover rounded-xl shadow-lg"
+
+
+          />
+
         </div>
       </motion.div>
     </div>

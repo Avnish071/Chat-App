@@ -1,0 +1,30 @@
+.navbar {
+  display: flex;
+  gap: 20px;
+  padding: 1rem 2rem;
+  background-color: #1e293b;
+  color: white;
+}
+
+.nav-link {
+  color: white;
+  text-decoration: none;
+  padding: 8px 16px;
+  border-radius: 5px;
+  transition: background 0.3s;
+}
+
+.nav-link:hover {
+  background-color: #334155;
+}
+
+.nav-link.active {
+  background-color: #d0ff00; /* Blue for active link */
+}
+
+.logout-button {
+  background: none;
+  border: none;
+  cursor: pointer;
+  font: inherit;
+}
