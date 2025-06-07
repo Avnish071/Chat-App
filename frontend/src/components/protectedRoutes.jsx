@@ -25,9 +25,17 @@ const Protectedroute = ({ children }) => {
     verify();
   }, []);
 
-  if (auth === null) {
-    return <div className="p-10 text-center">Checking authentication...</div>;
-  }
+ if (auth === null) {
+  return (
+    <div className="min-h-screen flex items-center justify-center bg-black">
+      <div className="flex flex-col items-center space-y-4">
+        <div className="w-12 h-12 border-4 border-t-[#D4AF37] border-white rounded-full animate-spin" />
+        <p className="text-[#D4AF37] font-medium text-lg animate-pulse">Checking authentication...</p>
+      </div>
+    </div>
+  );
+}
+
 
   return auth ? children : <Navigate to="/login" replace />;
 };

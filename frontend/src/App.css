@@ -1,11 +1,11 @@
-#root {
-  /* max-width: 1280px; */
+/* #root {
+  max-width: 1280px;
   margin: 0 auto;
   padding: 2rem;
-  /* text-align: center; */
-}
+  text-align: center;
+} */
 
-.logo {
+/* .logo {
   height: 6em;
   padding: 1.5em;
   will-change: filter;
@@ -16,7 +16,7 @@
 }
 .logo.react:hover {
   filter: drop-shadow(0 0 2em #61dafbaa);
-}
+} */
 
 @keyframes logo-spin {
   from {
@@ -57,4 +57,23 @@
   color: #fff;
   cursor: pointer;
   transition: background-color 0.2s ease;
+}
+
+.typing-animation {
+  overflow: hidden;              /* Ensures the text is hidden while typing */
+  white-space: nowrap;           /* Keeps the text on a single line */
+  border-right: 0.15em solid #D4AF37; /* Cursor effect */
+  animation:
+    typing 3s steps(20, end),
+    blink-caret 0.75s step-end infinite;
+}
+
+@keyframes typing {
+  from { width: 0 }
+  to { width: 100% }
+}
+
+@keyframes blink-caret {
+  from, to { border-color: transparent }
+  50% { border-color: #D4AF37 }
 }

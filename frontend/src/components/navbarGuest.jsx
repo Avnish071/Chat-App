@@ -5,7 +5,7 @@ const NavbarGuest = () => {
   return (
     <nav className="bg-gray-800 text-white p-4 flex justify-between items-center">
       <div className="text-xl font-bold">
-        <NavLink to="/">MyApp</NavLink>
+        <NavLink to="/">CHIT-CHAT</NavLink>
       </div>
       <div className="space-x-4">
         <NavLink
